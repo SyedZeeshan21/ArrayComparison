@@ -1,0 +1,30 @@
+extension Array where Element: Comparable {
+    
+    func hasSameElement(searchElement: Element, other: [Element]) -> Bool {
+        self.filter { $0 == searchElement }.count == other.filter { $0 == searchElement }.count
+    }    
+}
+  /// Returns an array of missing elements after comparing array2 with array1
+  /// - Parameters:
+  ///   - array1: An array of generic element type
+  ///   - array2: An array of generic element type
+  /// - Returns: A sorted array containing result of above comparison.
+func solve<T: Comparable & Hashable>(array1: Array<T>, array2: Array<T>) -> Array<T> {
+    var arrayDiff = Array<T>()
+    array2.forEach { element in
+        if !array2.hasSameElement(searchElement: element, other: array1) &&
+           !arrayDiff.contains(element) {
+            arrayDiff.append(element)
+        }
+    }
+    return arrayDiff.sorted()
+}
+/// Test case 1
+let array1 = [9, 4, 7, 9, 3]
+let array2 = [9, 11, 9, 13, 9]
+solve(array1: array1, array2: array2) // [9, 11, 13]
+
+/// Test case 2
+let stringArray1 = ["goat", "fish", "deer", "goat", "bear"]
+let stringArray2 = ["ant", "bear", "goat"]
+solve(array1: stringArray1, array2: stringArray2) // ["ant", "goat"]
